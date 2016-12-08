@@ -1,13 +1,13 @@
 
 let static = require('node-static');
 let http = require('http');
-let socketIO = require('socket.io');
 let file = new(static.Server)();
 let app = http.createServer((req, res) => {
     file.serve(req, res);
 }).listen(2013);
-let io = socketIO.listen(app);
 
+
+let io = require('socket.io').listen(app);
 io.sockets.on('connection', socket => {
 
     function log() {
@@ -25,7 +25,7 @@ io.sockets.on('connection', socket => {
     });
 
     socket.on('create or join', room => {
-        let numClients = io.sockets.clients(room).length;
+        let numClients = io.sockets.adapter.rooms;
 
         log('Room ' + room + ' has ' + numClients + ' client(s)');
         log('Request to create or join room ' + room);
