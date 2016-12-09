@@ -6,7 +6,7 @@ let app = http.createServer((req, res) => {
     file.serve(req, res);
 }).listen(2013);
 
-
+let roomClients = [];
 let io = require('socket.io').listen(app);
 io.sockets.on('connection', socket => {
 
@@ -25,15 +25,19 @@ io.sockets.on('connection', socket => {
     });
 
     socket.on('create or join', room => {
-        let numClients = io.sockets.adapter.rooms;
+        if (roomClients[room] == undefined) {
+            roomClients[room] = 0;
+        } else {
+            roomClients[room] ++;
+        }
 
-        log('Room ' + room + ' has ' + numClients + ' client(s)');
+        log('Room ' + room + ' has ' + roomClients[room] + ' client(s)');
         log('Request to create or join room ' + room);
 
-        if (numClients === 0) {
+        if (roomClients[room] === 0) {
             socket.join(room);
             socket.emit('created', room);
-        } else if (numClients === 1) {
+        } else if (roomClients[room] === 1) {
             io.sockets.in(room).emit('join', room);
             socket.join(room);
             socket.emit('joined', room);

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="keywords" content="JavaScript, WebRTC" />
+        <meta name="description" content="WebRTC codelab" />
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1">
+        <title>WebRTC codelab: step X</title>
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+
+    <body>
+        <h1>WebRTC codelab: step X</h1>
+
+        <p>
+            Room URL:<br />
+            <code id="url">...</code>
+        </p>
+
+        <video id="video" class="camera" autoplay></video>
+
+        <div class="controls">
+            <canvas id="photo" class="photo"></canvas>
+            <p>
+                <button id="snap">snap</button>
+                --then--
+                <button id="send">Send</button>
+                --||--
+                <button id="snapAndSend">snap & send</button>
+            </p>
+        </div>
+
+        <div class="incoming">
+            <h2>incoming photos</h2>
+            <div id="trail"></div>
+        </div>
+
+        <script type="text/javascript" src="http://cdn.bootcss.com/socket.io/1.6.0/socket.io.min.js"></script>
+        <script type="text/javascript" src="js/main_step4.js"></script>
+    </body>
+</html>
